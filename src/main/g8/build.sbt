@@ -49,8 +49,7 @@ lazy val jobTypesafe = project
     settings,
     commonAssemblySettings,
     libraryDependencies ++= commonDependencies ++ Seq(
-      dependencies.framelessDataset,
-      dependencies.framelessCats
+      dependencies.framelessDataset
     ),
     mainClass in assembly := Some("$organization$.$name$.app.JobTypesafe")
   )
