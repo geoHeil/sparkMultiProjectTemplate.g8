@@ -21,7 +21,7 @@ object JobTypesafe extends SparkBaseRunner[JobTypesafeConfiguration] {
   val users = Seq(User(1, "Anna"), User(2, "Bob")).toDS
   val events = Seq(Event(101, 1), Event(102, 2),
   	Event(103, 1), Event(104, 2), Event(105, 1),
-  	Event(106, 2), Event(107, 1), Event(108, 2))
+  	Event(106, 2), Event(107, 1), Event(108, 2)).toDS
   
   users.printSchema
   users.show
