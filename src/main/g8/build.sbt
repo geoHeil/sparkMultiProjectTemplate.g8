@@ -79,9 +79,9 @@ lazy val dependencies =
 
     val configs      = "com.github.kxbmap" %% "configs"     % configsV
 
-    val framelessDataset = "org.typelevel" %% "frameless-dataset" % framelessV,
-    val framelessMl = "org.typelevel" %% "frameless-ml"      % framelessV,
-    val framelessCats = "org.typelevel" %% "frameless-cats"    % framelessV,
+    val framelessDataset = "org.typelevel" %% "frameless-dataset" % framelessV
+    val framelessMl = "org.typelevel" %% "frameless-ml"      % framelessV
+    val framelessCats = "org.typelevel" %% "frameless-cats"    % framelessV
     
     val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % "test"
     val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
