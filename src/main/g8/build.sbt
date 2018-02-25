@@ -37,7 +37,7 @@ lazy val job1 = project
     settings,
     commonAssemblySettings,
     libraryDependencies ++= commonDependencies,
-    mainClass in assembly := Some("$organization$.$name$.Job1")
+    mainClass in assembly := Some("$organization$.$name$.app.Job1")
   )
   .dependsOn(
     common
@@ -49,8 +49,10 @@ lazy val jobTypesafe = project
     settings,
     commonAssemblySettings,
     libraryDependencies ++= commonDependencies ++ Seq(
-      // dependencies.frameless,
-    )
+      dependencies.framelessDataset,
+      dependencies.framelessCats
+    ),
+    mainClass in assembly := Some("$organization$.$name$.app.JobTypesafe")
   )
   .dependsOn(
     common
@@ -66,14 +68,20 @@ lazy val dependencies =
     val oracleJDBCV   = "12.2.0.1"
     val postgresJDBCV = "42.1.4"
     val geosparkV     = "1.0.1"
+    val framelessV    = "0.5.0"
 
     val sparkBase = "org.apache.spark" %% "spark-core" % sparkV % "provided"
     val sparkSql  = "org.apache.spark" %% "spark-sql"  % sparkV % "provided"
     val sparkHive = "org.apache.spark" %% "spark-hive" % sparkV % "provided"
+    val sparkMl = "org.apache.spark" %% "spark-mllib" % sparkV % "provided"
     val sparkStreaming = "org.apache.spark" %% "spark-streaming" % sparkV % "provided"
-    val sparkStreamingKafka = "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkV % "provided"
+    val sparkStreamingKafka = "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkV
 
     val configs      = "com.github.kxbmap" %% "configs"     % configsV
+
+    val framelessDataset = "org.typelevel" %% "frameless-dataset" % framelessV,
+    val framelessMl = "org.typelevel" %% "frameless-ml"      % framelessV,
+    val framelessCats = "org.typelevel" %% "frameless-cats"    % framelessV,
     
     val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % "test"
     val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
