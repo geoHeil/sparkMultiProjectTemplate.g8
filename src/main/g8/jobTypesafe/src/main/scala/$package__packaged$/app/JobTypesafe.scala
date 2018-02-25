@@ -42,7 +42,7 @@ object JobTypesafe extends SparkBaseRunner[JobTypesafeConfiguration] {
   events.show
 
   // DF operations in spark
-  val joinedDF = events.join(users, eventsDF("userId") === users("id")).drop(users("userId"))
+  val joinedDF = events.join(users, events("userId") === users("id")).drop('id)
   joinedDF.show
 
   val filteredDF = joinedDF.filter('eventId >= 105)
@@ -55,43 +55,24 @@ object JobTypesafe extends SparkBaseRunner[JobTypesafeConfiguration] {
 
   val fFoo = fUsers.select(fUsers('id))
   // fUsers.select(fUsers('idError)) // should fail
-  fFoo.show.run
-  println(fFoo.explain)
+  fFoo.show().run
+  println(fFoo.explain())
 
   val fJoined = fUsers.joinInner(fEvents) { fUsers('id) === fEvents('userId) }
-  fJoined.show.run
-  println(fJoined.explain)
+  fJoined.show().run
+  println(fJoined.explain())
 
-  val fFiltered = fJoined.filter(fJoined('eventId) >= 105).show.run
-  fFiltered.show.run
-  println(fFiltered.explain)
+  val fFiltered = fJoined.filter(fJoined('eventId) >= 105).show().run
+  fFiltered.show().run
+  println(fFiltered.explain())
 
   val fFoo2 = fFiltered.project[UEInfo]
-  fFoo2.show.run
-  println(fFoo2.explain)
+  fFoo2.show().run
+  println(fFoo2.explain())
   val fFoo3 = fFiltered.drop[UEInfo]
-  fFoo3.show.run
+  fFoo3.show().run
   // fFiltered.project[UEInfoError] // should fail due to typo
 
   // TODO move around
   // TODO test cache
-
-  // composition of jobs --------------------------------------------
-  val ds = TypedDataset.create(1 to 20)
-  val countAndTakeJob =
-    for {
-      count <- ds.count()
-      sample <- ds.take((count/5).toInt)
-    } yield sample
-
-  countAndTakeJob.run
-
-  import frameless.Job
-  def computeMinOfSample(sample: Job[Seq[Int]]): Job[Int] = sample.map(_.min)
-  val finalJob = computeMinOfSample(countAndTakeJob)
-
-  finalJob.
-  withGroupId("samplingJob").
-  withDescription("Samples 20% of elements and computes the min").
-  run
 }
