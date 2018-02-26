@@ -3,6 +3,7 @@ package $organization$.$name$.app
 
 import frameless.TypedDataset
 import frameless.syntax._
+import $organization$.$name$.config.JobTypesafeConfiguration
 
 final case class User(id: Int, name: String)
 
