@@ -1,7 +1,6 @@
 // Copyright (C) 2018
 package $organization$.$name$.app
 
-import $organization$.$name$.config.JobTypesafeConfiguration
 import frameless.TypedDataset
 import frameless.syntax._
 
@@ -16,8 +15,8 @@ final case class UInfoError(nameError: String)
 final case class UserEvent(eventId: Int, userId: Int, name: String)
 
 /**
-  * follow along at https://typelevel.org/frameless/FeatureOverview.html
-  * also here https://typelevel.org/frameless/TypedDatasetVsSparkDataset.html
+ * follow along at https://typelevel.org/frameless/FeatureOverview.html
+ * also here https://typelevel.org/frameless/TypedDatasetVsSparkDataset.html
   **/
 object JobTypesafe extends SparkBaseRunner[JobTypesafeConfiguration] {
   val spark = createSparkSession(this.getClass.getName)
@@ -27,15 +26,15 @@ object JobTypesafe extends SparkBaseRunner[JobTypesafeConfiguration] {
   // create the data sets
   val users = Seq(User(1, "Anna"), User(2, "Bob")).toDS
   val events = Seq(Event(101, 1),
-    Event(102, 2),
-    Event(103, 1),
-    Event(104, 2),
-    Event(105, 1),
-    Event(106, 2),
-    Event(107, 1),
-    Event(108, 2)).toDS
+                   Event(102, 2),
+                   Event(103, 1),
+                   Event(104, 2),
+                   Event(105, 1),
+                   Event(106, 2),
+                   Event(107, 1),
+                   Event(108, 2)).toDS
 
-  val fUsers = TypedDataset.create(users)
+  val fUsers  = TypedDataset.create(users)
   val fEvents = TypedDataset.create(events)
 
   users.show
