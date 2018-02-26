@@ -5,74 +5,113 @@ import $organization$.$name$.config.JobTypesafeConfiguration
 import frameless.TypedDataset
 import frameless.syntax._
 
-case class User(id:Int, name:String)
-case class Event(eventId:Int, userId:Int)
-case class UEInfo(name:String, eventId:Int)
-case class UEInfoError(nameError:String, eventId:Int)
+final case class User(id: Int, name: String)
+
+final case class Event(eventId: Int, userId: Int)
+
+final case class UInfo(name: String)
+
+final case class UInfoError(nameError: String)
+
+final case class UserEvent(eventId: Int, userId: Int, name: String)
 
 /**
- * follow along at https://typelevel.org/frameless/FeatureOverview.html
- * also here https://typelevel.org/frameless/TypedDatasetVsSparkDataset.html
-**/
+  * follow along at https://typelevel.org/frameless/FeatureOverview.html
+  * also here https://typelevel.org/frameless/TypedDatasetVsSparkDataset.html
+  **/
 object JobTypesafe extends SparkBaseRunner[JobTypesafeConfiguration] {
   val spark = createSparkSession(this.getClass.getName)
 
   import spark.implicits._
-  val users = Seq(User(1, "Anna"), User(2, "Bob")).toDS
-  val events = Seq(Event(101, 1), Event(102, 2),
-  	Event(103, 1), Event(104, 2), Event(105, 1),
-  	Event(106, 2), Event(107, 1), Event(108, 2)).toDS
-  
-  users.printSchema
-  users.show
 
+  // create the data sets
+  val users = Seq(User(1, "Anna"), User(2, "Bob")).toDS
+  val events = Seq(Event(101, 1),
+    Event(102, 2),
+    Event(103, 1),
+    Event(104, 2),
+    Event(105, 1),
+    Event(106, 2),
+    Event(107, 1),
+    Event(108, 2)).toDS
+
+  val fUsers = TypedDataset.create(users)
+  val fEvents = TypedDataset.create(events)
+
+  users.show
+  users.printSchema
+  users.explain
+  events.printSchema
+  events.show
+
+  fUsers.show().run
+  fUsers.printSchema
+  fUsers.explain()
+  fEvents.show().run
+
+  // some basic operations
   // TODO cant refactor name of id column using IDE.
   // How to get typesafe refactoring for this operation?
   // Can Datasets[T] api be used to achieve desired behaviour?
-  val foo = users.select('id)
-  foo.show
-  println(foo.explain)
+  users.select('id).show
+  users.select('id).explain
+  users.select('id).as[Int].show
+  users.select('id).as[Int].explain
+
+  // TODO however, still 'id cant be refactored. Am I missing something here?
+  fUsers.select(fUsers('name)).show().run
+  fUsers.select(fUsers('name)).explain()
+
+  // but using projection instead of SELECT
+  // should work to have something refactorable
+  fUsers.project[UInfo].show().run
+  fUsers.project[UInfo].explain()
+  fUsers.drop[UInfo].show().run
+  fUsers.drop[UInfo].explain()
+  // fUsers.project[UInfoError] // should fail due to typo
 
   // using a Dataset[T] map transformation causes additional serialization
-  // TODO map
   users.map(_.id).show
-  println(users.map(_.id).explain)
-  
-  events.printSchema
-  events.show
+  users.map(_.id).explain
 
   // DF operations in spark
   val joinedDF = events.join(users, events("userId") === users("id")).drop('id)
   joinedDF.show
+  joinedDF.explain
+  joinedDF.printSchema
+
+  // dataset
+  val joinedDS = events.joinWith(users, events.col("userId") === users.col("id")).drop('id)
+  joinedDS.show
+  joinedDS.printSchema
+  joinedDS.explain
 
   val filteredDF = joinedDF.filter('eventId >= 105)
   filteredDF.show
-  println(filteredDF.explain)
+  filteredDF.explain
 
-  // now using frameless typesafe operations
-  val fUsers = TypedDataset.create(users)
-  val fEvents = TypedDataset.create(events)
-
-  val fFoo = fUsers.select(fUsers('id))
-  // fUsers.select(fUsers('idError)) // should fail
-  fFoo.show().run
-  println(fFoo.explain())
-
-  val fJoined = fUsers.joinInner(fEvents) { fUsers('id) === fEvents('userId) }
+  val fJoined = fUsers.joinInner(fEvents) {
+    fUsers('id) === fEvents('userId)
+  } // TODO drop column id
   fJoined.show().run
-  println(fJoined.explain())
+  fJoined.explain()
+  fJoined.printSchema
 
-  val fFiltered = fJoined.filter(fJoined('eventId) >= 105).show().run
+  // TODO nested column after join
+  // TODO ask how to normalize columns after join
+  // defined class AptPriceCity
+
+  val normalized = fJoined
+    .select(
+      fJoined.colMany('_2, 'eventId),
+      fJoined.colMany('_2, 'userId),
+      fJoined.colMany('_1, 'name)
+    )
+    .as[UserEvent]
+  val fFiltered = normalized.filter(normalized('eventId) >= 105)
   fFiltered.show().run
-  println(fFiltered.explain())
+  fFiltered.explain()
 
-  val fFoo2 = fFiltered.project[UEInfo]
-  fFoo2.show().run
-  println(fFoo2.explain())
-  val fFoo3 = fFiltered.drop[UEInfo]
-  fFoo3.show().run
-  // fFiltered.project[UEInfoError] // should fail due to typo
-
-  // TODO move around
-  // TODO test cache
+  // finally convert back to spark dataframe
+  fFiltered.dataset.explain
 }
