@@ -40,7 +40,7 @@ object ConfigurationUtils {
       // only if you know what you are doing
 
       // use the non-Hive read path
-      //.setIfMissing("spark.sql.hive.convertMetastoreParquet", "true")
+      //.setIfMissing("spark.sql.hive.convertMetastoreParquet", "true") // turned on by default: https://spark.apache.org/docs/1.6.3/sql-programming-guide.html
       // turn off schema merging, which turns off push-down
       //.setIfMissing("spark.sql.parquet.mergeSchema", "false")
       //.setIfMissing("spark.sql.hive.convertMetastoreParquet", "false")
