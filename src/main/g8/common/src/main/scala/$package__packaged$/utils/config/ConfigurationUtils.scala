@@ -22,7 +22,7 @@ object ConfigurationUtils {
     val baseConf = new SparkConf()
       .setAppName(appName)
       .setIfMissing("spark.master", "local[*]")
-      .setIfMissing("spark.driver.memory", "12G")
+      .setIfMissing("spark.driver.memory", "9G")
       .setIfMissing("spark.default.parallelism", "12")
       .setIfMissing("spark.driver.maxResultSize", "1G")
       .setIfMissing("spark.speculation", "true")
@@ -31,6 +31,7 @@ object ConfigurationUtils {
       .setIfMissing("spark.memory.offHeap.enabled", "true")
       .setIfMissing("spark.memory.offHeap.size", "3g")
       .setIfMissing("spark.yarn.executor.memoryOverhead", "3g")
+      .setIfMissing("spark.eventLog.compress", "true")
 
       // turn on Parquet push-down, stats filtering, and dictionary filtering
       .setIfMissing("parquet.filter.statistics.enabled", "true")
