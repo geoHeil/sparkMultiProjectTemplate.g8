@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.utils.io
 
 import $organization$.$name$.utils.services.Renamer

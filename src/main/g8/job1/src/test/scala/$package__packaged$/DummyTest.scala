@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$
 
 import org.scalatest.{ FlatSpec, Matchers }

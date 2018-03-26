@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.utils.services
 
 import org.apache.spark.sql.DataFrame

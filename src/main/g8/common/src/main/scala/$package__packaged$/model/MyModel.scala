@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.model
 
 final case class MyModel(

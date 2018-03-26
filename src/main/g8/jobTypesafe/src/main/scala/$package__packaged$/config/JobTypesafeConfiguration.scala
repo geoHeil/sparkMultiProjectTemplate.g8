@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.config
 
 import org.apache.spark.sql.SaveMode

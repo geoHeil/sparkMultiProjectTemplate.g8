@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.service
 
 import $organization$.$name$.config.Job1Configuration

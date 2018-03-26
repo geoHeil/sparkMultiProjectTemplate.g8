@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.utils.services
 
 import java.time.LocalDateTime

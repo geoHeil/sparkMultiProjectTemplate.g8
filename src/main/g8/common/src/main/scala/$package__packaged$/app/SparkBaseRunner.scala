@@ -1,4 +1,4 @@
-// $copyright
+// $copyright$
 package $organization$.$name$.app
 
 import $organization$.$name$.utils.config.ConfigurationUtils
