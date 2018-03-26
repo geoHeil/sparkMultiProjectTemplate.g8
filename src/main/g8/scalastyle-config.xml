@@ -8,7 +8,7 @@
     </check>
     <check level="warning" class="org.scalastyle.file.HeaderMatchesChecker" enabled="true">
         <parameters>
-            <parameter name="header"><![CDATA[// Copyright (C) 2018]]></parameter>
+            <parameter name="header"><![CDATA[// $copyright]]></parameter>
         </parameters>
     </check>
     <check level="warning" class="org.scalastyle.scalariform.SpacesAfterPlusChecker" enabled="true"></check>

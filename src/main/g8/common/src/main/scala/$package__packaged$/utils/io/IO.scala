@@ -1,4 +1,4 @@
-// Copyright (C) 2018
+// $copyright
 package $organization$.$name$.utils.io
 
 import $organization$.$name$.utils.services.Renamer

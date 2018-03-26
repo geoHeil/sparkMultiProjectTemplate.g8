@@ -1,4 +1,4 @@
-// Copyright (C) 2018
+// $copyright
 package $organization$.$name$.config
 
 import org.apache.spark.sql.SaveMode
