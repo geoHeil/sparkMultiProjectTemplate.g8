@@ -62,11 +62,7 @@ lazy val jobTypesafe = project
 lazy val dependencies =
   new {
     val sparkV        = "$sparkVersion$"
-    val sparkTestingV = "0.8.0"
     val configsV      = "0.4.4"
-    val oracleJDBCV   = "12.2.0.1"
-    val postgresJDBCV = "42.1.4"
-    val geosparkV     = "1.0.1"
     val framelessV    = "0.5.0"
 
     val sparkBase = "org.apache.spark" %% "spark-core" % sparkV % "provided"
