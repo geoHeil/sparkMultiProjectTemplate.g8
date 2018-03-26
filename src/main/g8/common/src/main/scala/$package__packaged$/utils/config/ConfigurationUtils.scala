@@ -40,12 +40,6 @@ object ConfigurationUtils {
       // set advanced options according to https://cdn.oreillystatic.com/en/assets/1/event/160/Parquet%20performance%20tuning_%20The%20missing%20guide%20Presentation.pdf
       // only if you know what you are doing
 
-      // use the non-Hive read path
-      //.setIfMissing("spark.sql.hive.convertMetastoreParquet", "true") // turned on by default: https://spark.apache.org/docs/1.6.3/sql-programming-guide.html
-      // turn off schema merging, which turns off push-down
-      //.setIfMissing("spark.sql.parquet.mergeSchema", "false")
-      //.setIfMissing("spark.sql.hive.convertMetastoreParquet", "false")
-
     if (useKryo) {
       baseConf
         .setIfMissing("spark.serializer", classOf[KryoSerializer].getCanonicalName)
