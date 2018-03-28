@@ -39,6 +39,11 @@ object ConfigurationUtils {
       .setIfMissing("spark.sql.parquet.filterPushdown", "true")
       // set advanced options according to https://cdn.oreillystatic.com/en/assets/1/event/160/Parquet%20performance%20tuning_%20The%20missing%20guide%20Presentation.pdf
       // only if you know what you are doing
+      .setIfMissing("spark.sql.orc.impl", "native")
+    
+      // cost based optimizer https://jaceklaskowski.gitbooks.io/mastering-spark-sql/spark-sql-cost-based-optimization.html
+      .setIfMissing("spark.sql.cbo.enabled", "true")
+      .setIfMissing("spark.sql.statistics.histogram.enabled", "true")
 
     if (useKryo) {
       baseConf
