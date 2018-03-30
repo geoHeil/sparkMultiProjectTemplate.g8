@@ -39,3 +39,10 @@ some utility methods exist helping upgrading this project
 sbt dependencyUpdates
 ```
 will output all outdated dependencies
+
+## fixing dependency hell
+
+```
+sbt dependencyTree
+sbt dependencyBrowseGraph
+```
