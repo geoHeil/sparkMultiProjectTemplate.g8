@@ -36,3 +36,6 @@ addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.3")
 
 // nice formatting of sourcecode
 addSbtPlugin("com.lucidchart" % "sbt-scalafmt-coursier" % "1.15")
+
+// git support
+addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.9.3")
