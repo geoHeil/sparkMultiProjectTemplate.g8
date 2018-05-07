@@ -39,8 +39,13 @@ object ConfigurationUtils {
       .setIfMissing("spark.sql.parquet.filterPushdown", "true")
       // set advanced options according to https://cdn.oreillystatic.com/en/assets/1/event/160/Parquet%20performance%20tuning_%20The%20missing%20guide%20Presentation.pdf
       // only if you know what you are doing
+      // https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.4/bk_spark-component-guide/content/orc-spark.html
       .setIfMissing("spark.sql.orc.impl", "native")
-    
+      .setIfMissing("park.sql.orc.enableVectorizedReader", "true")
+      .setIfMissing("spark.sql.hive.convertMetastoreOrc", "true")
+      .setIfMissing("spark.sql.orc.filterPushdown", "true")
+      .setIfMissing("spark.sql.orc.char.enabled", "true")
+        
       // cost based optimizer https://jaceklaskowski.gitbooks.io/mastering-spark-sql/spark-sql-cost-based-optimization.html
       .setIfMissing("spark.sql.cbo.enabled", "true")
       .setIfMissing("spark.sql.statistics.histogram.enabled", "true")
