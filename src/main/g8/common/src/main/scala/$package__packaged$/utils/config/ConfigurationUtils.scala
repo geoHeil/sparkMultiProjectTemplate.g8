@@ -11,12 +11,20 @@ import org.apache.spark.sql.SparkSession
 
 object ConfigurationUtils {
 
-  def createSparkSession(appName: String, useKryo: Boolean): SparkSession =
+  @SuppressWarnings(Array("org.wartremover.warts.Null"))
+  def createSparkSession(appName: String, useKryo: Boolean): SparkSession = {
+    if (appName === "dev") {
+      // https://stackoverflow.com/questions/48008343/sbt-test-does-not-work-for-spark-test
+      // https://builds.apache.org/job/Derby-docs/lastSuccessfulBuild/artifact/trunk/out/security/csecjavasecurity.html
+      // https://issues.apache.org/jira/browse/SPARK-22918
+      System.setSecurityManager(null)
+    }
     SparkSession
       .builder()
       .config(createConf(appName, useKryo))
       .enableHiveSupport()
       .getOrCreate()
+  }
 
   def createConf(appName: String, useKryo: Boolean): SparkConf = {
     val baseConf = new SparkConf()
