@@ -79,7 +79,7 @@ lazy val dependencies =
     val framelessCats = "org.typelevel" %% "frameless-cats"    % framelessV
     
     val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % "test"
-    val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
+    val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
     val sparkTesting = "com.holdenkarau" %% "spark-testing-base" % "$sparkTestingbaseRelease$" % "test"
   }
 
