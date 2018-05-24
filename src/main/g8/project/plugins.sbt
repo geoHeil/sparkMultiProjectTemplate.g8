@@ -2,7 +2,7 @@ resolvers += "sonatype-releases" at "https://oss.sonatype.org/content/repositori
 
 resolvers += "Spark Package Main Repo" at "https://dl.bintray.com/spark-packages/maven"
 
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.1.0")
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.1.1")
 
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
@@ -10,7 +10,7 @@ resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.6")
 
 // like mvn release plugin
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.7")
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.8")
 
 // test coverage sbt clean coverage test
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1")
@@ -25,17 +25,17 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0")
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")
 
 // nicer dependency resolution
-addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.2")
+addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.3")
 
 // find outdated dependencies by calling sbt dependencyUpdatesReport
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.4")
 
 // prevent nasty errors when coding
 addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.2.1")
-addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.3")
+addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.5")
 
 // nice formatting of sourcecode
 addSbtPlugin("com.lucidchart" % "sbt-scalafmt-coursier" % "1.15")
 
 // git support
-addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.9.3")
+addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
