@@ -185,9 +185,9 @@ initialCommands in console :=
     |import $organization$.$name$.config.Job1Configuration
     |import org.apache.spark.sql.functions._
     |
-    |@transient lazy val logger = LoggerFactory.getLogger("dev")
+    |@transient lazy val logger = LoggerFactory.getLogger("console")
     |val c = ConfigurationUtils.loadConfiguration[Job1Configuration]
-    |val spark = ConfigurationUtils.createSparkSession("console", true)
+    |val spark = ConfigurationUtils.createSparkSession("dev", true)
     |
     |import spark.implicits._
   """.stripMargin
