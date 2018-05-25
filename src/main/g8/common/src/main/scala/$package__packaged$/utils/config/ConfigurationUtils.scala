@@ -8,6 +8,7 @@ import configs.syntax._
 import org.apache.spark.SparkConf
 import org.apache.spark.serializer.KryoSerializer
 import org.apache.spark.sql.SparkSession
+import $organization$.$name$.utils.Tools._
 
 object ConfigurationUtils {
 
